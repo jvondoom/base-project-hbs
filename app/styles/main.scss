@@ -1,0 +1,39 @@
+$icon-font-path: '../fonts/';
+
+
+// Site Variables
+@import 'core/variables';
+
+
+// Custom Bootstrap
+@import 'vendors/bootstrap/variables';
+@import 'vendors/bootstrap/bootstrap';
+@import 'vendors/bootstrap/buttons';
+
+
+// Custom Helpers
+@import 'helpers/mixins';
+@import 'helpers/utils';
+@import 'helpers/svgs';
+
+
+// Core
+@import 'core/fonts';
+@import 'core/typo';
+
+
+// bower:scss
+// endbower
+
+
+// Custom Vendors Modules
+// @import 'vendors/slick/slick';
+
+
+// Custom Modules
+@import 'modules/footer';
+@import 'modules/nav';
+
+
+// Pages
+@import 'pages/home';

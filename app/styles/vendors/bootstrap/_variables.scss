@@ -1,0 +1,37 @@
+//=====================================================================================
+//===== OVERRIDE BOOTSTRAP VARS
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$brand-primary: $color-tangerine;
+$link-primary: $color-riverbed;
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Global text color on `<body>`.
+$text-color: $color-riverbed;
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+$font-family-sans-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$font-size-base: 18px;
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight: 500;
+
+$btn-primary-color: $color-white;
+$btn-primary-bg: $color-tangerine;
+$btn-primary-border: $color-tangerine;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base: 39px;

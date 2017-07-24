@@ -1,0 +1,123 @@
+//
+// Mixins
+// --------------------------------------------------
+
+@mixin breakpoint($points) {
+  @each $point in $points {
+    @if $point == large {
+      @media (min-width: $screen-lg-min) { @content; }
+    }
+    @else if $point == desktop {
+      @media (min-width: $screen-md-min) and (max-width: $screen-lg-min) { @content; }
+    }
+    @else if $point == desktop-down {
+      @media (max-width: $screen-md-max) { @content; }
+    }
+    @else if $point == tablet-up {
+      @media (min-width: $screen-md-min) { @content; }
+    }
+    @else if $point == tablet {
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { @content; }
+    }
+    @else if $point == tablet-down {
+      @media (max-width: $screen-sm-max) { @content; }
+    }
+    @else if $point == tablet-portrait-down {
+      @media (max-width: $screen-xs-max)  { @content; }
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) and (orientation: portrait) { @content; }
+    }
+    @else if $point == tablet-landscape-up {
+      @media (min-width: $screen-md-min) { @content; }
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) and (orientation: landscape) { @content; }
+    }
+    @else if $point == tablet-portrait {
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) and (orientation: portrait) { @content; }
+    }
+    @else if $point == tablet-landscape {
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) and (orientation: landscape) { @content; }
+    }
+    @else if $point == phone-up {
+      @media (min-width: $screen-sm-min) { @content; }
+    }
+    @else if $point == phone {
+      @media (max-width: $screen-xs-max)  { @content; }
+    }
+    @else if $point == phone-portrait {
+      @media (max-width: $screen-xs-max) and (orientation: portrait)  { @content; }
+    }
+    @else if $point == phone-landscape {
+      @media (max-width: $screen-xs-max) and (orientation: landscape)  { @content; }
+    }
+  }
+}
+
+@mixin alignment($align: center, $position: absolute) {
+  position: $position;
+  @if $align == vertical {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else if $align == horizontal {
+    left: 50%;
+    transform: translateX(-50%);
+  } @else if $align == center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin fontFace($family, $style: normal, $weight: normal) {
+  @font-face {
+    font-family: $family;
+    src: url('#{$font-url}/#{$family}.eot');
+    src: url('#{$font-url}/#{$family}.eot?#iefix') format('embedded-opentype'),
+         url('#{$font-url}/#{$family}.woff2') format('woff2'),
+         url('#{$font-url}/#{$family}.woff') format('woff'),
+         url('#{$font-url}/#{$family}.ttf') format('truetype'),
+         url('#{$font-url}/#{$family}.svg##{$family}') format('svg');
+
+    font-style: $style;
+    font-weight: $weight;
+  }
+}
+
+@mixin transition($args...) {
+  -moz-transition: $args;
+  -webkit-transition: $args;
+  -o-transition: $args;
+  -ms-transition: $args;
+  transition: $args;
+}
+
+@mixin rotate($angle) {
+  -moz-transform: rotate($angle);
+  -ms-transform: rotate($angle);
+  transform: rotate($angle);
+  -webkit-transform: rotate($angle);
+}
+
+@mixin font-smoothing($value: on) {
+  @if $value == on {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+@mixin placeholder() {
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    @content;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    @content;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    @content;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    @content;
+  }
+}

@@ -1,0 +1,20 @@
+.svg-icon {
+  pointer-events: none;
+  vertical-align: middle;
+}
+
+#icon-search {
+  g {
+    &:first-child {
+      path {
+        fill: rgba($color-riverbed, .17);
+      }
+    }
+
+    &:last-child {
+      path {
+        fill: $color-riverbed;
+      }
+    }
+  }
+}

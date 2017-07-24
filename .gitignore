@@ -1,0 +1,12 @@
+# Frontend
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+app/*.html
+app/scripts/main.js
+app/public/
+app/scripts/es6/helpers/config.js
+
+.DS_Store

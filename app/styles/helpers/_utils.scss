@@ -1,0 +1,23 @@
+//
+// Utils
+// --------------------------------------------------
+
+.row-centered {
+  text-align:center;
+}
+
+.col-centered {
+  display:inline-block;
+  float:none;
+  /* reset the text-align */
+  text-align:left;
+  /* inline-block space fix */
+  margin-right:-4px;
+}
+
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}

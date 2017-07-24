@@ -1,0 +1,31 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+  {{#block "head"}}
+    {{> global/head }}
+  {{/block}}
+
+  <body class="{{ global.prefix }}-p-home {{ page }}-page" >
+    {{#block "svgs"}}
+      {{> global/svgs }}
+    {{/block}}
+
+    {{#block "header"}}
+      {{> global/header }}
+    {{/block}}
+
+    <div role="main">
+      {{#block "body"}}
+          <h2>this is the {{ page }} page</h2>
+      {{/block}}
+    </div>
+
+    {{#block "footer"}}
+      {{> global/footer }}
+    {{/block}}
+
+    {{#block "scripts"}}
+      {{> global/scripts }}
+    {{/block}}
+  </body>
+</html>

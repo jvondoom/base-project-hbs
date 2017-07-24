@@ -1,0 +1,14 @@
+//
+// Typography
+// --------------------------------------------------
+
+$font-url: '../fonts';
+
+$fonts: (
+  'font-avenir-medium',
+  'font-avenir-regular'
+);
+
+@each $family in $fonts {
+  @include fontFace($family);
+}
