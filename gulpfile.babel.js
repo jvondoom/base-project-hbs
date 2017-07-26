@@ -20,6 +20,22 @@ handlebars.registerHelper(layouts(handlebars));
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
+const styleGuide = {
+  source: './app/',
+  destination: './app/public/styleguide',
+
+  // The css and js paths are URLs, like '/misc/jquery.js'.
+  // The following paths are relative to the generated style guide.
+  css: '../styles/main.css',
+  js: [
+        '/bower_components/jquery/dist/jquery.js',
+        '/bower_components/babel-polyfill/browser-polyfill.js',
+        '../scripts/main.js'
+      ],
+  homepage: 'homepage.md',
+  title: 'Sanderson Farms Styleguide'
+};
+
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
@@ -54,6 +70,13 @@ gulp.task('hbs', () => {
 
   // clean up the cache for internal scripts to refresh changes in structure.data
   glob('./app/_pages/**/*.js', options, function (er, files) {
+
+    for (let file of files) {
+      delete require.cache[require.resolve( file )];
+    }
+  });
+
+  glob('./app/_partials/**/*.js', options, function (er, files) {
 
     for (let file of files) {
       delete require.cache[require.resolve( file )];
@@ -171,7 +194,7 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['env-config'], () => {
+gulp.task('serve', ['env-config', 'clean'], () => {
   runSequence(
     ['es6', 'svg', 'wiredep', 'hbs', 'lint', 'styles', 'fonts'],
     () => {
@@ -181,26 +204,18 @@ gulp.task('serve', ['env-config'], () => {
       server: {
         baseDir: ['.tmp', 'app/public/', 'app/'],
         routes: {
-          '/bower_components': 'bower_components'
+          '/bower_components': 'bower_components',
+          '/node_modules': 'node_modules'
         }
       }
     });
 
-    gulp.watch([
-      'app/**/*.html',
-      'app/scripts/**/*.js',
-      'app/images/**/*',
-      '.tmp/fonts/**/*'
-    ]).on('change', reload);
-
-    gulp.watch('app/**/*.hbs', ['hbs']);
-    gulp.watch('app/_data/structure.data.js', ['hbs']);
-    gulp.watch('app/_pages/**/*.js', ['hbs']);
-    gulp.watch('app/images/svg/*.svg', ['svg']);
-    gulp.watch('app/styles/**/*.scss', ['styles']);
-    gulp.watch('app/scripts/es6/**/*.js', ['lint','es6']);
-    gulp.watch('app/fonts/**/*', ['fonts']);
-    gulp.watch('bower.json', ['wiredep', 'fonts', 'hbs']);
+      gulp.watch(['app/**/*.hbs','app/_data/structure.data.js','app/_pages/**/*.js', 'app/_partials/**/*.js'], ['hbs', reload]);
+      gulp.watch('app/images/svg/*.svg', ['svg']);
+      gulp.watch(['app/styles/**/*.scss', 'app/_components/**/*.scss', 'app/_partials/**/*.scss', 'app/_pages/**/*.scss'], ['styles', reload]);
+      gulp.watch('app/scripts/es6/**/*.js', ['lint','es6']);
+      gulp.watch('app/fonts/**/*', ['fonts']);
+      gulp.watch(['app/images/**/*','app/scripts/**/*.js']).on('change', reload);
     }
   );
 });
@@ -217,7 +232,7 @@ gulp.task('serve:dist', () => {
 
 gulp.task('copy', function () {
   gulp.src(['dist/**/*', '!dist/**/*.html'])
-  .pipe(gulp.dest('../backend/project/web/app/themes/{BE-PROJECT-NAME}/assets/')); // Please update Back-End project name if is necessary.
+  .pipe(gulp.dest('../backend/project/web/app/themes/sanderson-farm-theme/assets/')); // Please update Back-End project name if is necessary.
 });
 
 // inject bower components
@@ -239,7 +254,9 @@ gulp.task('build', ['env-config'], () => {
   runSequence(
     'es6',
     'hbs',
-    ['svg', 'lint', 'html', 'images', 'fonts', 'extras'],
+    ['svg', 'lint', 'images', 'fonts'],
+    ['html'],
+    ['extras'],
     () => {
       return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
     }
