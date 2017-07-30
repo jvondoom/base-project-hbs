@@ -1,8 +1,8 @@
 {
-  "name": "porter-novelli-retirement-game-microsite",
+  "name": "base",
   "version": "1.0.0",
-  "description": "Porter Novelli Retirement Game Microsite",
-  "author": "Hangar",
+  "description": "base",
+  "author": "jvondoom",
   "keywords": [
     "gulp",
     "es6",

@@ -1,4 +1,4 @@
-Porter Novelli Retirement Game Microsite
+<Change this to Project name>
 =======================
 
 ## Features
